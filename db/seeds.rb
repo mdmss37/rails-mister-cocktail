@@ -8,16 +8,87 @@
 require "open-uri"
 require "json"
 
-url = "http://www.thecocktaildb.com/api/json/v1/1/list.php?i=list"
-data = open(url).read
-data = JSON.parse(data)
+Cocktail.destroy_all
+Ingredient.destroy_all
+Dose.destroy_all
 
-puts data["drinks"]
-puts "seed drinks"
+10.times do
+  url = "http://www.thecocktaildb.com/api/json/v1/1/random.php"
+  data = JSON.parse(open(url).read)
+  drink = data["drinks"][0]
+  p "Drink name is", drink["strDrink"] == []
+  p "cocktail?", Cocktail.where("name = ? ", drink["strDrink"]).empty?
+  if Cocktail.where("name = ? ", drink["strDrink"]).empty?
+    cocktail = Cocktail.create!(name: drink["strDrink"])
+  else
+    drink_name = drink["strDrink"]
+    cocktail = Cocktail.where("name = ?", drink_name)[0]
+  end
 
-data["drinks"].each do |drink|
-  puts drink["strIngredient1"]
-  Ingredient.create!(name: drink["strIngredient1"])
+  p "cocktail is", cocktail
+
+  (1..15).to_a.each do |num|
+    # p "ingredient is:", drink["strIngredient#{num}"]
+    if Ingredient.where("name= ? ", drink["strIngredient#{num}"]).empty? && drink["strIngredient#{num}"] != "" && drink["strIngredient#{num}"] != nil
+      ingredient = Ingredient.create!(name: drink["strIngredient#{num}"])
+    else
+      ingredient = Ingredient.where("name= ? ", drink["strIngredient#{num}"])[0]
+    end
+    p "ingredient is", ingredient
+
+    cocktail && ingredient && Dose.create!(description: drink["strMeasure#{num}"], cocktail: cocktail, ingredient: ingredient)
+    # dose && dose.cocktail = cocktail
+    # dose && dose.ingredient = ingredient
+    # puts dose
+    # dose && dose.valid? && dose.save! 
+  end
+  
+  # puts cocktail
 end
 
-puts "seed drinks"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# url = "http://www.thecocktaildb.com/api/json/v1/1/list.php?i=list"
+# data = open(url).read
+# data = JSON.parse(data)
+
+# puts data["drinks"]
+# puts "seed ingredients"
+
+# data["drinks"].each do |drink|
+#   puts drink["strIngredient1"]
+#   Ingredient.create!(name: drink["strIngredient1"])
+# end
+
+# puts "finish ingredients"
+
+
+
+# puts "seed drinks"
+
+# Ingredient.all.each do |ingredient|
+#   url = "http://www.thecocktaildb.com/api/json/v1/1/filter.php?i=#{ingredient.name}"
+#   puts url
+#   data = JSON.parse(open(url).read)
+#   puts data
+#   data["drinks"].each do |drink|
+#     puts drink["strDrink"]
+#     Cocktail.create!(name: drink["strDrink"])
+#   end
+# end
+
+# puts "finish drinks"
+
