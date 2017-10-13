@@ -66,3 +66,5 @@ gem 'figaro'
 
 # cloudinary
 gem 'cloudinary'
+# carrierwave
+gem 'carrierwave', '~> 0.11.2'
