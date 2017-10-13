@@ -1,1 +1,8 @@
 // Specific CSS for your home-page
+.container {
+  margin-top: 10px;
+}
+
+.container .row .col-xs-12.col-sm-4 {
+  margin-bottom: 10px;
+}

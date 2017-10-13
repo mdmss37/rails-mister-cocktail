@@ -19,7 +19,10 @@ Dose.destroy_all
   p "Drink name is", drink["strDrink"] == []
   p "cocktail?", Cocktail.where("name = ? ", drink["strDrink"]).empty?
   if Cocktail.where("name = ? ", drink["strDrink"]).empty?
-    cocktail = Cocktail.create!(name: drink["strDrink"])
+    thumbnail_url = drink["strDrinkThumb"]
+    cocktail = Cocktail.new(name: drink["strDrink"])
+    cocktail.remote_photo_url = thumbnail_url
+    cocktail.save
   else
     drink_name = drink["strDrink"]
     cocktail = Cocktail.where("name = ?", drink_name)[0]
@@ -34,7 +37,7 @@ Dose.destroy_all
     else
       ingredient = Ingredient.where("name= ? ", drink["strIngredient#{num}"])[0]
     end
-    p "ingredient is", ingredient
+    p "ingredient is", ingredient if ingredient
 
     cocktail && ingredient && Dose.create!(description: drink["strMeasure#{num}"], cocktail: cocktail, ingredient: ingredient)
     # dose && dose.cocktail = cocktail

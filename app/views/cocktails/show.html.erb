@@ -1,15 +1,95 @@
+<!-- insert your profile header -->
+<div class="profile-header-wrapper">
+  <div class="container text-center">
 
-<h2><%= @cocktail.name %></h2>
-<h3>Ingredients</h3>
+    <!-- Avatar and username -->
+    <div class="profile-header-infos">
+      <%= cl_image_tag @cocktail.photo, class: "avatar-large" %>
+      <h1><%= @cocktail.name %></h1>
+      <h3>Ingredients</h3>
+      <ul class="list-inline">
+      <% @doses.each do |dose| %>
+        <li><p><%= dose.ingredient.name %>:<%= dose.description %></p></li>
+        <li><%= link_to "Delete", dose_path(dose), method: :delete  %></li>
+      <% end %>
+      </ul>
+      <div>
+        <%= link_to "Add new doses", new_cocktail_dose_path(@cocktail), class: "btn-treehouse" %>        
+      </div>
+    </div>
 
-<%= link_to "Add new doses", new_cocktail_dose_path(@cocktail) %>
+    <!-- Insert your <div class="tabs"> here -->
+    <div class="tabs">
+      <a href="#" class="tab active">
+        <h3>900</h3>
+        <p>Upvoted</p>
+      </a>
+      <a href="#" class="tab">
+        <h3>677</h3>
+        <p>Submitted</p>
+      </a>
+      <a href="#" class="tab">
+        <h3>564</h3>
+        <p>Followers</p>
+      </a>
+      <a href="#" class="tab">
+        <h3>0</h3>
+        <p>Following</p>
+      </a>
+    </div>
+  </div>
+</div>
 
-<%= image_tag @thumbnail %>
-<%= @instructions %>
-
-<ul>
-<% @doses.each do |dose| %>
-  <li><%= dose.ingredient.name %><%= dose.description %></li>
-  <%= link_to "Delete", dose_path(dose), method: :delete  %>
-<% end %>  
-</ul>
+<div class="container">
+  <div class="product">
+    <!-- You product code here -->
+    <div class="product-upvote">
+      <div class="product-arrow"></div>
+      <div class="product-count">95</div>
+    </div>
+    <img src="images/4902705100770_common.jpg" alt="" class="product-imgage">
+    <div class="product-body">
+      <h3>Review</h3>
+      <p>Review</p>
+    </div>
+    <ul class="product-controls list-inline">
+      <li><a href=""><i class="fa fa-heart"></i></a></li>
+      <li><a href=""><i class="fa fa-share"></i></a></li>
+      <li><a href=""><i class="fa fa-star"></i></a></li>
+    </ul>
+  </div>
+  <div class="product">
+    <!-- You product code here -->
+    <div class="product-upvote">
+      <div class="product-arrow"></div>
+      <div class="product-count">95</div>
+    </div>
+    <img src="" alt="" class="product-imgage">
+    <div class="product-body">
+      <h3>ProductName</h3>
+      <p>ProductDescription</p>
+    </div>
+    <ul class="product-controls list-inline">
+      <li><a href=""><i class="fa fa-heart"></i></a></li>
+      <li><a href=""><i class="fa fa-share"></i></a></li>
+      <li><a href=""><i class="fa fa-star"></i></a></li>
+    </ul>
+  </div>
+  <div class="product">
+    <!-- You product code here -->
+    <div class="product-upvote">
+      <div class="product-arrow"></div>
+      <div class="product-count">95</div>
+    </div>
+    <img src="" alt="" class="product-imgage">
+    <div class="product-body">
+      <h3>ProductName</h3>
+      <p>ProductDescription</p>
+    </div>
+    <ul class="product-controls list-inline">
+      <li><a href=""><i class="fa fa-heart"></i></a></li>
+      <li><a href=""><i class="fa fa-share"></i></a></li>
+      <li><a href=""><i class="fa fa-star"></i></a></li>
+    </ul>
+  </div>
+</div>
