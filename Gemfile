@@ -64,3 +64,5 @@ gem "autoprefixer-rails"
 # figaro
 gem 'figaro'
 
+# cloudinary
+gem 'cloudinary'
