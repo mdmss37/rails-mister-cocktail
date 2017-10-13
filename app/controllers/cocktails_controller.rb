@@ -3,6 +3,7 @@ require 'json'
 
 class CocktailsController < ApplicationController
   def index
+    # https://stackoverflow.com/questions/2752231/random-record-in-activerecord
     @cocktails = Cocktail.order("RANDOM()").limit(9)
   end
 
@@ -18,8 +19,10 @@ class CocktailsController < ApplicationController
   def create
     @cocktail = Cocktail.new(cocktail_params)
     if @cocktail.save
+      flash[:notice] = "Cocktail #{@cocktail.name} has been created"
       redirect_to cocktail_path(@cocktail)
     else
+      flash[:alert] = "Something is wrong"
       render :new
     end
   end
