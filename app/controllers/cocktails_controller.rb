@@ -5,6 +5,7 @@ class CocktailsController < ApplicationController
   def index
     # https://stackoverflow.com/questions/2752231/random-record-in-activerecord
     @cocktails = Cocktail.order("RANDOM()").limit(9)
+    @cocktail_count = Cocktail.count
   end
 
   def show
@@ -19,10 +20,10 @@ class CocktailsController < ApplicationController
   def create
     @cocktail = Cocktail.new(cocktail_params)
     if @cocktail.save
-      flash[:notice] = "Cocktail #{@cocktail.name} has been created"
+      flash[:notice] = "Cocktail #{@cocktail.name} has been created."
       redirect_to cocktail_path(@cocktail)
     else
-      flash[:alert] = "Something is wrong"
+      flash[:alert] = "Please review your submission."
       render :new
     end
   end
@@ -30,7 +31,7 @@ class CocktailsController < ApplicationController
   private
 
   def cocktail_params
-    params.require(:cocktail).permit(:name, :photo, :photo_cache)
+    params.require(:cocktail).permit(:name, :instruction, :photo, :photo_cache)
   end
 
 end

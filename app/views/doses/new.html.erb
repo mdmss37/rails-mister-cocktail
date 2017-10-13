@@ -1,9 +1,18 @@
+<div class="container-form">
+  <div class="row">
+    <div class="col-xs-8 col-xs-offset-2">
+      <h2>Add new Ingredient to <%= @cocktail.name %></h2>
+        <%= simple_form_for [@cocktail, @dose] do |f| %>
+          <%#= f.error_notification %>
+          <%= f.association :ingredient %>
+          <%= f.input :description %>
+          
+          <%= f.button :submit, class: "btn btn-treehouse" %>
+        <% end %>   
+    </div>
+  </div>
+</div>
 
-<h2>New Dose</h2>
-<%= simple_form_for [@cocktail, @dose] do |f| %>
-  <%= f.error_notification %>
-  <%= f.association :ingredient %>
-  <%= f.input :description %>
-  
-  <%= f.button :submit %>
-<% end %>
+
+
+

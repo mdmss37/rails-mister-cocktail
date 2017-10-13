@@ -1,6 +1,6 @@
-
+<!-- https://stackoverflow.com/questions/3901619/how-to-comment-lines-in-rails-html-erb-files -->
 <div class="container">
-  <h3>Cocktails</h3>
+  <h3>9 Random Cocktails(Out of <%= @cocktail_count %> Cocktails)</h3>
   <div class="row">
     <% @cocktails.each do |cocktail| %>
     <div class="col-xs-12 col-sm-4">
@@ -9,16 +9,13 @@
         <div class="card-category">Popular</div>
         <div class="card-description">
           <h2><%= link_to cocktail.name, cocktail_path(cocktail) %></h2>
-          <% letter_count = 60 %>
-          <p><%= 
-            cocktail.instruction.length >= letter_count ? cocktail.instruction[0..(letter_count-3)] + "..." : cocktail.instruction %>
-          </p>
+          <% truncate_at = 90 %>
+          <p><%= truncate_text(cocktail.instruction, truncate_at) %></p>
         </div>
-        <%= image_tag 'http://via.placeholder.com/50x50', class: "card-user" %>
+        <%#= image_tag 'http://via.placeholder.com/50x50', class: "card-user" %>
         <%= link_to cocktail.name, cocktail_path(cocktail), class: "card-link" %>
       </div>
     </div>
-
     <% end %>
   </div>
 </div>
